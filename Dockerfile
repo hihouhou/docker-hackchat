@@ -19,8 +19,8 @@ apt-get install --yes nodejs
 # install hackchat server
 RUN git clone https://github.com/AndrewBelt/hack.chat.git && \
 cd hack.chat && \
-npm install && \
-cp config-sample.json config.json
+npm install
+ADD config.json /hack.chat/
 
 #install pm2
 RUN cd /hack.chat && \
@@ -34,4 +34,4 @@ make
 ADD client.js /hack.chat/client/
 
 EXPOSE 6060
-CMD pm2 start /hack.chat/server.js && cd /hack.chat/client && http-server
+CMD cd /hack.chat && pm2 start /hack.chat/server.js && cd /hack.chat/client && http-server
